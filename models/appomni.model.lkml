@@ -3,7 +3,7 @@ connection: "chronicle"
 # include all the views
 include: "/views/**/*.view.lkml"
 
-include: "/dashboards/**/*.dashboard"
+
 
 datagroup: appomni_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -14,6 +14,7 @@ persist_with: appomni_default_datagroup
 
 
 explore: events {
+    sql_always_where: ${metadata__log_type} = "APPOMNI" ;;
     join: events__about {
       view_label: "Events: About"
       sql: LEFT JOIN UNNEST(${events.about}) as events__about ;;
